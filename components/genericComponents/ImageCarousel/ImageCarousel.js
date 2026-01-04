@@ -106,7 +106,7 @@ export default class ImageCarousel extends Component {
                         <ul id={"image-carousel__images"} className={css["image-carousel__images"]} onMouseDown={this.mouseDownHandler}>
                             {this.props.blok.images.map((imt, i) =>
                                 <li className={css["image-carousel__image-container"]} key={imt._uid}>
-                                    <img className={css["image-carousel__image"]} src={imt.image?.filename} alt={imt.image.alt} />
+                                    <img className={css["image-carousel__image"]} src={imt.image?.filename} alt={imt.image?.alt} />
                                     <p className={css["image-carousel__description"]}>{imt.description}</p>
                                 </li>)}
                         </ul>
