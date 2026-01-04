@@ -97,7 +97,7 @@ export default class Headermenu extends Component {
 									onKeyPress={this.toggleNavSideMenu.bind(this, true)}
 									onClick={this.toggleNavSideMenu.bind(this, true)} />
 							</li>
-							{this.props.blok.menucontent.map((nestedBlok, index, array) => {
+							{this.props.blok.menucontent?.map((nestedBlok, index, array) => {
 								
 									return (
 										<>
