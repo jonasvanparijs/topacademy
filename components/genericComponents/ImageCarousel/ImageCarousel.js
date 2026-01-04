@@ -1,4 +1,5 @@
-﻿import React, { Component } from "react";
+﻿import Link from "next/link";
+import React, { Component } from "react";
 import css from "./ImageCarousel.module.scss";
 import PropTypes from "prop-types";
 import { storyblokEditable } from "@storyblok/react";
@@ -90,11 +91,17 @@ export default class ImageCarousel extends Component {
     }
 
     render() {
+        // STAP 1: Checken of er een "next_page" link is ingevuld in Storyblok
+        const nextPage = this.props.blok.next_page;
+        // We kijken of 'nextPage' bestaat EN of er een 'cached_url' in zit
+        const hasNextPageLink = nextPage && nextPage.cached_url;
+
         return (
             <>
-                <section  {...storyblokEditable(this.props.blok)} className={css["imagecarouselwrapper"]}>
+                <section {...storyblokEditable(this.props.blok)} className={css["imagecarouselwrapper"]}>
                     <h2 className={css["imagecarouselwrapper__title"]}>{this.props.blok.title}</h2>
                     {RichTextToHTML({document: this.props.blok.intro, textClassName: css["imagecarouselwrapper__subtitle"], linkClassName:["imagecarousel__emphmail"]})}
+                    
                     <div className={css["image-carousel__images-container"]}>
                         <ul id={"image-carousel__images"} className={css["image-carousel__images"]} onMouseDown={this.mouseDownHandler}>
                             {this.props.blok.images.map((imt, i) =>
@@ -103,6 +110,8 @@ export default class ImageCarousel extends Component {
                                     <p className={css["image-carousel__description"]}>{imt.description}</p>
                                 </li>)}
                         </ul>
+
+                        {/* De Linker Pijl (blijft hetzelfde: scrollt terug) */}
                         {(this.state.showLeftArrow) && <span
                             className={["mdi", "mdi-arrow-left", css["image-carousel__arrow-left"]].join(" ")}
                             role="button"
@@ -110,27 +119,36 @@ export default class ImageCarousel extends Component {
                             onKeyPress={() => this.scrollCarousel(true)}
                             onClick={() => this.scrollCarousel(true)}
                         />}
-                        {(this.state.showRightArrow) && <span
-                            className={["mdi", "mdi-arrow-right", css["image-carousel__arrow-right"]].join(" ")}
-                            role="button"
-                            tabIndex={0}
-                            onKeyPress={() => this.scrollCarousel(false)}
-                            onClick={() => this.scrollCarousel(false)}
-                        />}
+
+                        {/* --- HIER IS DE AANPASSING VOOR DE RECHTER PIJL --- */}
+                        {/* We tonen de pijl als: A) Je nog kan scrollen (showRightArrow) OF B) Er een link is (hasNextPageLink) */}
+                        {(this.state.showRightArrow || hasNextPageLink) && (
+                            hasNextPageLink ? (
+                                // SITUATIE A: Er is een link -> Maak er een Link van naar de volgende pagina
+                                <Link href={`/${nextPage.cached_url}`}>
+                                    <span
+                                        className={["mdi", "mdi-arrow-right", css["image-carousel__arrow-right"]].join(" ")}
+                                        role="button"
+                                        tabIndex={0}
+                                        style={{ cursor: "pointer" }}
+                                    />
+                                </Link>
+                            ) : (
+                                // SITUATIE B: Geen link -> Gewoon scrollen zoals vroeger
+                                <span
+                                    className={["mdi", "mdi-arrow-right", css["image-carousel__arrow-right"]].join(" ")}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyPress={() => this.scrollCarousel(false)}
+                                    onClick={() => this.scrollCarousel(false)}
+                                />
+                            )
+                        )}
+                        {/* ----------------------------------------------- */}
+
                     </div>
                 </section>
             </>
         );
     }
 }
-
-ImageCarousel.propTypes = {
-    imagesWithText: PropTypes.arrayOf(PropTypes.shape({
-        _uid: PropTypes.string,
-        image: PropTypes.shape({
-            filename: PropTypes.string,
-            alt: PropTypes.string
-        }),
-        description: PropTypes.string
-    }))
-};
