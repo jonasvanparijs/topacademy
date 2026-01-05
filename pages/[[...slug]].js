@@ -20,10 +20,10 @@ export default function Page({ story, preview, socialtags, menu }) {
       "list.elements",
       "course.locations",
       "course.locations",
-     "person.courses",
-     "person.locations",
-     "location.teachers",
-     "location.courses"
+      "person.courses",
+      "person.locations",
+      "location.teachers",
+      "location.courses"
     ]
   }, preview);
 
