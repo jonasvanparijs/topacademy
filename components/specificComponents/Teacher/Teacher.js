@@ -56,14 +56,7 @@ export default class Teacher extends Component {
                                 </div>
                             </section>
 
-                            {/* ERVARING */}
-                             <div className={css["rich-text-section--with-navigator"]} style={{marginTop: '40px'}}>
-                                <h2 className={css["rich-text-section__title"]}>Experience</h2>
-                                {blok.experiences && blok.experiences.map((nestedBlok) => (
-                                    <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
-                                ))}
-                            </div>
-
+                        
                             {/* --- COURSES I TEACH --- */}
                             {myCourses.length > 0 && (
                                 <div style={{marginTop: '60px', borderTop: '1px solid #eee', paddingTop: '40px'}}>
