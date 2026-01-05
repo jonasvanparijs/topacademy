@@ -1,43 +1,40 @@
 import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
+import "./FacilityPage.scss"; // IMPORT HIER JE SCSS
 
 const FacilityPage = ({ blok }) => (
-  <main {...storyblokEditable(blok)} style={{ padding: '20px' }}>
-    {/* 1. Toon de Titel */}
-    <h1>{blok.title}</h1>
+  <div {...storyblokEditable(blok)} className="facility-page">
+    <header className="facility-header">
+      <h1>{blok.title}</h1>
+      <p>UGent Faciliteit: {blok.category}</p>
+    </header>
 
-    {/* 2. Toon de Foto */}
-    {blok.main_image && (
-      <img src={blok.main_image.filename} alt={blok.title} style={{ width: '100%', maxHeight: '400px', objectFit: 'cover' }} />
-    )}
+    <div className="facility-content">
+      {blok.main_image && (
+        <img className="main-image" src={blok.main_image.filename} alt={blok.title} />
+      )}
 
-    {/* 3. LOGICA: Toon extra info op basis van je vinkjes */}
-    <div style={{ background: '#f0f0f0', padding: '15px', marginTop: '20px', borderRadius: '8px' }}>
-      <h3>Faciliteiten info:</h3>
-      <ul>
-        <li>Categorie: {blok.category}</li>
-        <li>Status: <strong>{blok.opening_status}</strong></li>
-        
-        {/* Logisch veld 1: Wifi */}
-        {blok.has_wifi ? (
-          <li>✅ Gratis Wifi beschikbaar (Eduroam)</li>
-        ) : (
-          <li>❌ Geen Wifi in dit gebouw</li>
-        )}
+      <div className="logic-grid">
+        {/* Kaart 1: Wifi logica */}
+        <div className="info-card">
+          <h4>Connectiviteit</h4>
+          {blok.has_wifi ? "📶 Eduroam Wifi beschikbaar" : "📵 Geen publieke wifi"}
+        </div>
 
-        {/* Logisch veld 2: Studentenkaart */}
-        {blok.requires_student_card && (
-          <li style={{ color: 'red', fontWeight: 'bold' }}>⚠️ Studentenkaart verplicht!</li>
-        )}
-      </ul>
+        {/* Kaart 2: Kaart-verplichting logica met extra CSS class */}
+        <div className={`info-card ${blok.requires_student_card ? 'warning' : ''}`}>
+          <h4>Toegang</h4>
+          <p>Status: {blok.opening_status}</p>
+          {blok.requires_student_card && <p>⚠️ Studentenkaart verplicht!</p>}
+        </div>
+      </div>
+
+      <div className="body-content">
+        {blok.body && blok.body.map((nestedBlok) => (
+          <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
+        ))}
+      </div>
     </div>
-
-    {/* 4. Toon de rest van de blokken die je in de body sleept */}
-    <div className="mt-4">
-      {blok.body && blok.body.map((nestedBlok) => (
-        <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
-      ))}
-    </div>
-  </main>
+  </div>
 );
 
 export default FacilityPage;
