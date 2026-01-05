@@ -21,7 +21,7 @@ export default function Page({ story, preview, socialtags, menu }) {
       "course.locations",
       "course.locations",
       "person.courses",
-      "person.locations",
+      "person.location",
       "location.teachers",
       "location.courses"
     ]
