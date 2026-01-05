@@ -57,7 +57,7 @@ export async function getStaticProps({ params }) {
       "list.elements",
       "course.locations",
       "person.courses",     // Dit zorgt dat je teachers hun courses zien
-      "person.locations",   // Dit zorgt dat je teachers hun locations zien
+      "person.location",   // Dit zorgt dat je teachers hun locations zien
       "location.teachers",
       "location.courses"
     ]
