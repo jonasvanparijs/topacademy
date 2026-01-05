@@ -1,5 +1,5 @@
 import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
-import "./FacilityPage.scss"; // IMPORT HIER JE SCSS
+import "./Facility_page.module.scss"; // IMPORT HIER JE SCSS
 
 const FacilityPage = ({ blok }) => (
   <div {...storyblokEditable(blok)} className="facility-page">

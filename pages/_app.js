@@ -50,7 +50,7 @@ const components = {
   location: Location,
   artist: Artist,
   song: Song,
-  facility_page: Facility_page
+  facility_page: Facility_page,
 };
 
 storyblokInit({
