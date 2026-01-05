@@ -27,7 +27,7 @@ import Product from '../components/specificComponents/Product/Product';
 import Location from '../components/specificComponents/Location/Location';
 import Artist from '../components/specificComponents/Artist/Artist';
 import Song from '../components/specificComponents/Song/Song';
-import Facility_page from '../components/specificComponents/facility_page/facility_page';
+
 
 const components = {
   person: Teacher,
@@ -50,7 +50,7 @@ const components = {
   location: Location,
   artist: Artist,
   song: Song,
-  facility_page: Facility_page,
+  
 };
 
 storyblokInit({
