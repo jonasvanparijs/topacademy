@@ -1,9 +1,8 @@
 ﻿import React, { Component } from "react";
-// Zorg dat je een CSS bestand hebt of verwijder deze import en de css={} classes
 import css from "./Location.module.scss"; 
 import Link from "next/link";
 import Headermenu from "../../genericComponents/Headermenu/Headermenu";
-import { storyblokEditable } from "@storyblok/react";
+import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
 import { RichTextToHTML } from "../../../functions/storyBlokRichTextRenderer";
 
 export default class Location extends Component {
@@ -13,33 +12,50 @@ export default class Location extends Component {
         // 1. DATA OPHALEN
         const myTeachers = blok.teachers || [];
         const myCourses = blok.courses || [];
-        // Misschien heb je een imagecarousel of intro blok
         const image = blok.image || {}; 
+        const myBlocks = blok.additionalstuff || [];
 
         return (
             <div {...storyblokEditable(blok)}>
                 <Headermenu blok={this.props.menu ? this.props.menu.content : null} />
 
                 <main style={{maxWidth: '1200px', margin: '0 auto', padding: '20px'}}>
-                    {/* Titel van de locatie */}
+                    {/* 1. TITEL */}
                     <h1 style={{fontSize: '3rem', marginBottom: '20px'}}>{blok.title}</h1>
 
-                    {/* Intro tekst */}
-                    {blok.intro && (
+                    {/* 2. AFBEELDING (Nu weer bovenaan!) */}
+                    {image.filename && (
+                        <img 
+                            src={image.filename} 
+                            alt={blok.title} 
+                            style={{
+                                width: '100%', 
+                                maxHeight: '500px', 
+                                objectFit: 'cover', 
+                                borderRadius: '10px',
+                                marginBottom: '40px' // Beetje ruimte onder de foto
+                            }} 
+                        />
+                    )}
+
+                    {/* 3. JE BLOKKEN (LeftRightBlock, Intro, etc.) */}
+                    <div style={{marginBottom: '40px'}}>
+                        {myBlocks.map((nestedBlok) => (
+                             <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
+                        ))}
+                    </div>
+
+                    {/* 4. EXTRA BESCHRIJVING */}
+                    {blok.description && (
                         <div style={{fontSize: '1.2rem', lineHeight: '1.6', marginBottom: '40px'}}>
-                             {RichTextToHTML({ document: blok.intro })}
+                             {RichTextToHTML({ document: blok.description })}
                         </div>
                     )}
                     
-                    {/* Afbeelding (als die er is) */}
-                    {image.filename && (
-                        <img src={image.filename} alt={blok.title} style={{width: '100%', maxHeight: '500px', objectFit: 'cover', borderRadius: '10px'}} />
-                    )}
-
-                    {/* --- ONDERAAN: DOCENTEN EN CURSUSSEN --- */}
+                    {/* 5. ONDERAAN: DOCENTEN EN CURSUSSEN */}
                     <div style={{marginTop: '60px', borderTop: '2px solid #eee', paddingTop: '40px'}}>
                         
-                        {/* 1. CURSUSSEN OP DEZE LOCATIE */}
+                        {/* CURSUSSEN */}
                         {myCourses.length > 0 && (
                             <div style={{marginBottom: '40px'}}>
                                 <h2>Courses at this location</h2>
@@ -56,14 +72,13 @@ export default class Location extends Component {
                             </div>
                         )}
 
-                        {/* 2. DOCENTEN OP DEZE LOCATIE */}
+                        {/* DOCENTEN */}
                         {myTeachers.length > 0 && (
                             <div>
                                 <h2>Teachers here</h2>
                                 <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px', marginTop: '20px'}}>
                                     {myTeachers.map((teacher) => (
                                         <div key={teacher.uuid} style={{border: '1px solid #ddd', padding: '15px', borderRadius: '8px', textAlign: 'center'}}>
-                                            {/* Foto van docent als die er is */}
                                             {teacher.content.image && teacher.content.image.filename && (
                                                 <img src={teacher.content.image.filename} alt={teacher.content.title} style={{width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover', marginBottom: '10px'}} />
                                             )}
