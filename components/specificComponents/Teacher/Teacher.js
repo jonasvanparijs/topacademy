@@ -70,7 +70,7 @@ export default class Teacher extends Component {
                                     {hasLink(prevTeacher) && (
                                         <Link href={getUrl(prevTeacher)}>
                                             <a style={{ textDecoration: 'none', fontWeight: 'bold', color: '#333', border: '1px solid #ddd', padding: '10px 20px', borderRadius: '5px' }}>
-                                                &larr; Vorige Docent
+                                                &larr; Previous Teacher
                                             </a>
                                         </Link>
                                     )}
@@ -81,7 +81,7 @@ export default class Teacher extends Component {
                                     {hasLink(nextTeacher) && (
                                         <Link href={getUrl(nextTeacher)}>
                                             <a style={{ textDecoration: 'none', fontWeight: 'bold', color: '#333', border: '1px solid #ddd', padding: '10px 20px', borderRadius: '5px' }}>
-                                                Volgende Docent &rarr;
+                                                Next Teacher &rarr;
                                             </a>
                                         </Link>
                                     )}
