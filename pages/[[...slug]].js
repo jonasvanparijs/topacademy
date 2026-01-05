@@ -17,7 +17,13 @@ export default function Page({ story, preview, socialtags, menu }) {
       "song.artist",
       "course.teachers",
       "course.products",
-      "list.elements"
+      "list.elements",
+      "course.locations",
+      "course.locations",
+     "person.courses",
+     "person.locations",
+     "location.teachers",
+     "location.courses"
     ]
   }, preview);
 
@@ -48,7 +54,12 @@ export async function getStaticProps({ params }) {
       "song.artist",
       "course.teachers",
       "course.products",
-      "list.elements"
+      "list.elements",
+      "course.locations",
+      "person.courses",     // Dit zorgt dat je teachers hun courses zien
+      "person.locations",   // Dit zorgt dat je teachers hun locations zien
+      "location.teachers",
+      "location.courses"
     ]
   };
 
