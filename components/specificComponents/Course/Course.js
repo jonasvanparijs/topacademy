@@ -1,60 +1,82 @@
 ﻿import React, { Component } from "react";
 import css from "./Course.module.scss";
+import Link from "next/link";
 import Headermenu from "../../genericComponents/Headermenu/Headermenu";
 import Hero from "../../genericComponents/Hero/Hero";
-import TeacherCard from "../TeacherCard/TeacherCard";
-import Element from "../../genericComponents/Element/Element";
 import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
 import { RichTextToHTML } from "../../../functions/storyBlokRichTextRenderer";
+// Als je TeacherCard hebt, kun je die importeren, anders gebruiken we een simpele link
+// import TeacherCard from "../TeacherCard/TeacherCard"; 
 
 export default class Course extends Component {
+    render() {
+        const blok = this.props.blok || {};
 
-	constructor(props) {
-		super(props);
-	}
+        // 1. DATA OPHALEN
+        // 'teachers' en 'locations' zijn de veldnamen die je in Storyblok hebt gemaakt
+        const myTeachers = blok.teachers || [];
+        const myLocations = blok.locations || [];
 
-	render() {
-		return (
-			<div {...storyblokEditable(this.props.blok)}>
-				<Headermenu blok={this.props.menu.content}></Headermenu>
-				<main>
-					<Hero blok={this.props.blok} contentTypeTag="course" />
-					<div className={css["course-page__main-content"]}>
-						<div id="course-page__short-description" key="course-page__short-description" className={css["course-page__short-description"]}>
-							<section className={css["rich-text-section--with-navigator"]}>
-								<h2 className={css["rich-text-section__title"]}>Course description</h2>
-								<div className={css["rich-text-section__rich-text"]}>{RichTextToHTML({ document: this.props.blok.description })}</div>
-							</section>
-						</div>
-						<div id="course-page__short-description" key="course-page__short-description" className={css["course-page__short-description"]}>
-							<section className={css["rich-text-section--with-navigator"]}>
-								<h2 className={css["rich-text-section__title"]}>Our Teachers</h2>
-								{this.props.blok.teachers && this.props.blok.teachers.map((teacher) => (
-									<TeacherCard blok={teacher} key={teacher._uid} />
-								))}
-							</section>
-						</div>
-						<div id="course-page__short-description" key="course-page__short-description" className={css["course-page__short-description"]}>
-							<section className={css["rich-text-section--with-navigator"]}>
-								
-							</section>
-						</div>
-						<div id="course-page__short-description" key="course-page__short-description" className={css["course-page__short-description"]}>
-							<section className={css["rich-text-section--with-navigator"]}>
-								<h2 className={css["rich-text-section__title"]}>Products</h2>
-								{this.props.blok.products && this.props.blok.products.map((product) => (
-									<Element blok={product} key={product._uid} />
-								))}
-							</section>
-						</div>
-					</div>
+        return (
+            <div {...storyblokEditable(blok)}>
+                <Headermenu blok={this.props.menu ? this.props.menu.content : null} />
 
-					{this.props.blok.bottombloks && this.props.blok.bottombloks.map((nestedBlok) => (
-						<StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
-					))}
-				</main>
-			</div>
-		);
+                <main>
+                    <Hero blok={blok} contentTypeTag="course" />
 
-	}
+                    <div className={css["course-page__main-content"]}>
+                         {/* --- BESCHRIJVING --- */}
+                        <div id="course-page__short-description">
+                            <section className={css["rich-text-section--with-navigator"]}>
+                                <h2 className={css["rich-text-section__title"]}>About this Course</h2>
+                                <div className={css["rich-text-section__rich-text"]}>
+                                    {RichTextToHTML({ document: blok.description })}
+                                </div>
+                            </section>
+                        </div>
+
+                        {/* --- ONDERAAN: DOCENTEN EN LOCATIES --- */}
+                        <div className={css["rich-text-section--with-navigator"]} style={{marginTop: '60px'}}>
+                            
+                            {/* 1. DOCENTEN */}
+                            {myTeachers.length > 0 && (
+                                <div style={{marginBottom: '40px'}}>
+                                    <h2 className={css["rich-text-section__title"]}>Teachers</h2>
+                                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px', marginTop: '20px'}}>
+                                        {myTeachers.map((teacher) => (
+                                            <div key={teacher.uuid} style={{border: '1px solid #ddd', padding: '15px', borderRadius: '8px'}}>
+                                                {/* Simpele weergave van de docent */}
+                                                <h3 style={{margin: '0 0 10px 0'}}>{teacher.content.title}</h3>
+                                                <Link href={`/${teacher.full_slug}`}>
+                                                    <a style={{color: '#0070f3', fontWeight: 'bold', textDecoration: 'none'}}>Bekijk profiel &rarr;</a>
+                                                </Link>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* 2. LOCATIES */}
+                            {myLocations.length > 0 && (
+                                <div>
+                                    <h2 className={css["rich-text-section__title"]}>Locations</h2>
+                                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px', marginTop: '20px'}}>
+                                        {myLocations.map((loc) => (
+                                            <div key={loc.uuid} style={{border: '1px solid #ddd', padding: '15px', borderRadius: '8px'}}>
+                                                <h3 style={{margin: '0 0 10px 0'}}>{loc.content.title}</h3>
+                                                <Link href={`/${loc.full_slug}`}>
+                                                    <a style={{color: '#0070f3', fontWeight: 'bold', textDecoration: 'none'}}>Bekijk locatie &rarr;</a>
+                                                </Link>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                        </div>
+                    </div>
+                </main>
+            </div>
+        );
+    }
 }
