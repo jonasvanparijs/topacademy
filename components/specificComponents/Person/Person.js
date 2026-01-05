@@ -1,42 +1,46 @@
 ﻿import React, { Component } from "react";
 import css from "./Person.module.scss";
-// We importeren renderRichText om de Bio te kunnen lezen
+// Deze import heb je nodig voor de Bio
 import { storyblokEditable, StoryblokComponent, renderRichText } from "@storyblok/react";
 
 export default class Person extends Component {
     render() {
         const blok = this.props.blok || {};
+
+        // 1. DATA OPHALEN (Let op: hier gebruiken we de namen uit jouw Storyblok screenshot)
         
-        // --- STAP 1: DATA OPHALEN MET DE JUISTE NAMEN UIT JE LIBRARY ---
-        
-        // In je screenshot heet het plaatje 'image', dus we gebruiken blok.image
+        // Plaatje heet 'image' in jouw blok, niet 'photo'
         const image = blok.image || {};
         
-        const experiences = blok.experiences || [];
-        const bottomBlocks = blok.bottom_blocks || [];
+        // Namen ophalen
+        const firstName = blok.compellation;
+        const lastName = blok.lastname;
         
+        // Overige velden
         const bio = blok.bio;
         const dateOfBirth = blok.dateofbirth;
-        const firstName = blok.compellation; 
-        const lastName = blok.lastname;
+        const experiences = blok.experiences || [];
+        const bottomBlocks = blok.bottom_blocks || [];
 
-        // --- STAP 2: NAAM SAMENSTELLEN ---
-        // Als voornaam EN achternaam zijn ingevuld, plakken we ze aan elkaar.
-        // Anders gebruiken we de 'title' als backup.
-        let fullName = blok.title;
+        // 2. NAAM SAMENSTELLEN
+        // We maken één naam van de voor- en achternaam
+        let displayName = blok.title; // Begin met de titel als backup
+        
         if (firstName && lastName) {
-            fullName = `${firstName} ${lastName}`;
+            displayName = `${firstName} ${lastName}`;
+        } else if (lastName) {
+            displayName = lastName;
         }
 
         return (
             <div {...storyblokEditable(blok)} className={css["wrapper"]}>
                 <div className={css["content"]}>
                     
-                    {/* DE HEADER */}
+                    {/* HEADER: NAAM EN DATUM */}
                     <div className={[css["box"], css["head"]].join(" ")}>
-                        <h1>{fullName}</h1>
+                        <h1>{displayName}</h1>
                         
-                        {/* Datum tonen als die is ingevuld */}
+                        {/* Datum alleen tonen als die is ingevuld */}
                         {dateOfBirth && (
                             <p style={{marginTop: "10px", fontStyle: "italic"}}>
                                 Geboren op: {new Date(dateOfBirth).toLocaleDateString('nl-NL')}
@@ -44,14 +48,14 @@ export default class Person extends Component {
                         )}
                     </div>
 
-                    {/* DE SIDEBAR (FOTO + BIO) */}
+                    {/* SIDEBAR: FOTO EN BIO */}
                     <div className={[css["box"], css["sidebar"]].join(" ")}>
                         <div className={css["personalimage"]}>
-                            {/* Let op: we gebruiken hier nu 'image' i.p.v. 'photo' */}
-                            {image.filename && <img src={image.filename} alt={fullName} />}
+                            {/* We gebruiken hier 'image' omdat we dat hierboven hebben opgehaald */}
+                            {image.filename && <img src={image.filename} alt={displayName} />}
                         </div>
 
-                        {/* BIO TONEN */}
+                        {/* BIO */}
                         {bio && (
                             <div style={{marginTop: "20px", lineHeight: "1.6"}}>
                                 {renderRichText(bio)}
@@ -78,7 +82,7 @@ export default class Person extends Component {
                     
                     {/* FOOTER */}
                     <div className={[css["box"], css["foot"]].join(" ")}>
-                        <div>&copy; {fullName} {new Date().getFullYear()}</div>
+                        <div>&copy; {displayName} {new Date().getFullYear()}</div>
                     </div>
 
                 </div>
