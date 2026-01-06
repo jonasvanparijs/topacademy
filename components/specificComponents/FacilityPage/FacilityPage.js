@@ -64,6 +64,32 @@ export default class FacilityPage extends Component {
                 <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
               ))}
           </div>
+          {/* NAVIGATIE KNOPPEN */}
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "40px", borderTop: "1px solid #ddd", paddingTop: "20px" }}>
+                
+                {/* VORIGE KNOP */}
+                <div>
+                    {blok.prev_link && blok.prev_link.cached_url && (
+                        <Link href={"/" + blok.prev_link.cached_url}>
+                            <a style={{ textDecoration: "none", color: "#333", fontWeight: "bold" }}>
+                                &larr; Previous Facility
+                            </a>
+                        </Link>
+                    )}
+                </div>
+
+                {/* VOLGENDE KNOP */}
+                <div>
+                    {blok.next_link && blok.next_link.cached_url && (
+                        <Link href={"/" + blok.next_link.cached_url}>
+                            <a style={{ textDecoration: "none", color: "#333", fontWeight: "bold" }}>
+                                Next Facility &rarr;
+                            </a>
+                        </Link>
+                    )}
+                </div>
+
+              </div>
           
 
         </div>
