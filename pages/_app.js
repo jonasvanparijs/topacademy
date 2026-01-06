@@ -51,6 +51,7 @@ const components = {
   artist: Artist,
   song: Song,
   facility_page: FacilityPage
+  
 };
 
 storyblokInit({
