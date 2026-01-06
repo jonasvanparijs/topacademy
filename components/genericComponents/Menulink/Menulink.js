@@ -43,12 +43,21 @@ export default function Menulink({ blok, last, index, key, mobile }) {
 						{blok.submenulinks.map((submenulink, index, array) => {
 							return (
 								<>
-									<Link key={submenulink._uid} href={"/"+submenulink.link.cached_url}>
-										<a className={css["main-header__dropdown-item-container"]}>
-											<img src={submenulink.icon.filename} alt={submenulink.icon.alt} />
-											<div>{RichTextToHTML({ document: submenulink.name, textClassName: css["main-header__dropdown-item-text"], boldClassName: css["main-header__dropdown-item-text--highlighted"] })}</div>
-										</a>
-									</Link>
+									/* CHECK: Is er wel een link? */
+{submenulink.link && submenulink.link.cached_url ? (
+    <Link key={submenulink._uid} href={"/" + submenulink.link.cached_url}>
+        <a className={css["main-header__dropdown-item-container"]}>
+            <img src={submenulink.icon.filename} alt={submenulink.icon.alt} />
+            <div>
+                {RichTextToHTML({ 
+                    document: submenulink.name, 
+                    textClassName: css["main-header__dropdown-item-text"], 
+                    boldClassName: css["main-header__dropdown-item-text--highlighted"] 
+                })}
+            </div>
+        </a>
+    </Link>
+) : null}
 								</>
 							)
 						})}
