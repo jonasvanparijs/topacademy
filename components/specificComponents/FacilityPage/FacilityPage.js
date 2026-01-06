@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
 import css from "./FacilityPage.module.scss";
+import Link from "next/link";
 
 export default class FacilityPage extends Component {
   render() {
@@ -39,10 +40,17 @@ export default class FacilityPage extends Component {
               <strong>Status:</strong> {blok.opening_status}
             </div>
             <div className={css["info-item"]}>
-                <strong>Location:</strong> {blok.location && blok.location.map((loc, index) => (
+                <strong>Location: </strong> 
+                {blok.location && blok.location.map((loc, index) => (
                     <span key={loc._uid}>
                         {index > 0 && ", "}
-                        {loc.name}
+                        {/* HIER START DE LINK */}
+                        <Link href={"/" + loc.full_slug}>
+                            <a style={{ textDecoration: "underline", cursor: "pointer" }}>
+                                {loc.name}
+                            </a>
+                        </Link>
+                        {/* HIER EINDIGT DE LINK */}
                     </span>
                 ))}
                 {!blok.location && "Unknown"}
