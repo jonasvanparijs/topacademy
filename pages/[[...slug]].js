@@ -59,7 +59,8 @@ export async function getStaticProps({ params }) {
       "person.courses",     // Dit zorgt dat je teachers hun courses zien
       "person.location",   // Dit zorgt dat je teachers hun locations zien
       "location.teachers",
-      "location.courses"
+      "location.courses",
+      "facility_page.location"
     ]
   };
 

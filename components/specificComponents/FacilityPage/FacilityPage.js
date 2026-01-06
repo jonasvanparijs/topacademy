@@ -47,6 +47,15 @@ export default class FacilityPage extends Component {
                 <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
               ))}
           </div>
+          <div className={css["info-item"]}>
+                <strong>Location:</strong> {blok.location && blok.location.map((loc, index) => (
+                    <span key={loc._uid}>
+                        {index > 0 && ", "}
+                        {loc.name}
+                    </span>
+                ))}
+                {!blok.location && "Unknown"}
+              </div>
 
         </div>
       </main>
