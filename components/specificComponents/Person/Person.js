@@ -63,14 +63,6 @@ export default class Person extends Component {
                         )}
                     </div>
 
-                    {/* ERVARING */}
-                    <div className={[css["box"], css["experience"]].join(" ")}>
-                        <h2>Experience</h2>
-                        {experiences.map((nestedBlok) => (
-                            <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
-                        ))}
-                    </div>
-
                     {/* CARROUSEL */}
                     {bottomBlocks.length > 0 && (
                         <div className={[css["box"], css["experience"]].join(" ")} style={{marginTop: "20px"}}>
