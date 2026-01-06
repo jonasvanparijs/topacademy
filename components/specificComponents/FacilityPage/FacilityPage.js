@@ -64,32 +64,51 @@ export default class FacilityPage extends Component {
                 <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
               ))}
           </div>
-          {/* NAVIGATIE KNOPPEN */}
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "40px", borderTop: "1px solid #ddd", paddingTop: "20px" }}>
-                
-                {/* VORIGE KNOP */}
-                <div>
+         {/* NAVIGATIE MET MOOIE KNOPPEN */}
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: "50px", borderTop: "2px solid #f0f0f0", paddingTop: "30px" }}>
+
+                {/* VORIGE KNOP (Links) */}
+                <div style={{ flex: 1, textAlign: "left" }}>
                     {blok.prev_link && blok.prev_link.cached_url && (
                         <Link href={"/" + blok.prev_link.cached_url}>
-                            <a style={{ textDecoration: "none", color: "#333", fontWeight: "bold" }}>
-                                &larr; Previous Facility
+                            <a style={{ 
+                                display: "inline-block", 
+                                padding: "12px 24px", 
+                                backgroundColor: "#0055AA", /* UGent Blauw */
+                                color: "white", 
+                                borderRadius: "8px", 
+                                textDecoration: "none",
+                                fontWeight: "bold",
+                                boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                            }}>
+                                &larr; Previous
                             </a>
                         </Link>
                     )}
                 </div>
 
-                {/* VOLGENDE KNOP */}
-                <div>
+                {/* VOLGENDE KNOP (Rechts) */}
+                <div style={{ flex: 1, textAlign: "right" }}>
                     {blok.next_link && blok.next_link.cached_url && (
                         <Link href={"/" + blok.next_link.cached_url}>
-                            <a style={{ textDecoration: "none", color: "#333", fontWeight: "bold" }}>
-                                Next Facility &rarr;
+                            <a style={{ 
+                                display: "inline-block", 
+                                padding: "12px 24px", 
+                                backgroundColor: "#0055AA", /* UGent Blauw */
+                                color: "white", 
+                                borderRadius: "8px", 
+                                textDecoration: "none",
+                                fontWeight: "bold",
+                                boxShadow: "0 2px 5px rgba(0,0,0,0.1)"
+                            }}>
+                                Next &rarr;
                             </a>
                         </Link>
                     )}
                 </div>
 
               </div>
+            
           
 
         </div>
