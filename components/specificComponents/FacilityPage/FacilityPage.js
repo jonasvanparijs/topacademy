@@ -69,12 +69,13 @@ export default class FacilityPage extends Component {
 
                 {/* VORIGE KNOP (Links) */}
                 <div style={{ flex: 1, textAlign: "left" }}>
-                    {blok.prev_link && blok.prev_link.cached_url && (
-                        <Link href={"/" + blok.prev_link.cached_url}>
+                    {/* HIER ONDER GEBRUIKEN WE NU 'previous_link' IPV 'prev_link' */}
+                    {blok.previous_link && blok.previous_link.cached_url && (
+                        <Link href={"/" + blok.previous_link.cached_url}>
                             <a style={{ 
                                 display: "inline-block", 
                                 padding: "12px 24px", 
-                                backgroundColor: "#0055AA", /* UGent Blauw */
+                                backgroundColor: "#0055AA", 
                                 color: "white", 
                                 borderRadius: "8px", 
                                 textDecoration: "none",
