@@ -56,10 +56,11 @@ export async function getStaticProps({ params }) {
       "course.products",
       "list.elements",
       "course.locations",
-      "person.courses",     // Dit zorgt dat je teachers hun courses zien
-      "person.location",   // Dit zorgt dat je teachers hun locations zien
+      "person.courses",     
+      "person.location",   
       "location.teachers",
-      "location.courses"
+      "location.courses",
+      "facility_page.location"
     ]
   };
 

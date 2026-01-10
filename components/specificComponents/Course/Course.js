@@ -71,7 +71,34 @@ export default class Course extends Component {
                                         ))}
                                     </div>
                                 </div>
-                            )}
+                            )} {/* START NAVIGATIE KNOPPEN */}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px', padding: '20px 0', borderTop: '1px solid #ccc' }}>
+                      
+                      {/* Vorige Cursus */}
+                      {this.props.blok.previous_course && this.props.blok.previous_course.cached_url ? (
+                          <div style={{ cursor: 'pointer' }}>
+                              <Link href={`/${this.props.blok.previous_course.cached_url}`}>
+                                  <a style={{ fontWeight: 'bold', textDecoration: 'none', color: '#000' }}>
+                                      &larr; Previous Course
+                                  </a>
+                              </Link>
+                          </div>
+                      ) : (
+                          <div></div> /* Leeg blokje om de layout goed te houden als er geen vorige is */
+                      )}
+
+                      {/* Volgende Cursus */}
+                      {this.props.blok.next_course && this.props.blok.next_course.cached_url && (
+                          <div style={{ cursor: 'pointer' }}>
+                              <Link href={`/${this.props.blok.next_course.cached_url}`}>
+                                  <a style={{ fontWeight: 'bold', textDecoration: 'none', color: '#000' }}>
+                                      Next Course &rarr;
+                                  </a>
+                              </Link>
+                          </div>
+                      )}
+                  </div>
+                  {/* EINDE NAVIGATIE KNOPPEN */}
 
                         </div>
                     </div>

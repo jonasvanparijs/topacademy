@@ -1,0 +1,137 @@
+@import "../../../styles/font-mixins.scss";
+@import "../../../styles/colors.scss";
+
+.facility-page {
+  width: 100%;
+  display: block;
+
+  // BASIS GRID (Mobiel)
+  &__main-content {
+    display: grid;
+    grid-template-columns: 18px auto 18px; // Kleine marge links en rechts
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  // Zorg dat alle content in de middelste kolom staat
+  &__header,
+  &__image-container,
+  &__info-grid,
+  &__content {
+    grid-column: 2 / 3;
+  }
+}
+
+// --- SPECIFIEKE ELEMENTEN STIJLING ---
+
+// De Header
+.facility-page__header {
+  margin-top: 40px;
+  margin-bottom: 30px;
+
+  h1 {
+    // Gebruikt de pixel-font mixin als die in je project bestaat
+    @include title-font; 
+    margin-bottom: 15px;
+    font-size: 2.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    background-color: #eee;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+}
+
+// De Afbeelding
+.facility-page__image-container {
+  margin-bottom: 40px;
+  
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+}
+
+// De Info blokjes (Wifi etc.)
+.facility-page__info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 25px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 40px;
+
+  .info-item {
+    margin-right: 20px;
+    font-size: 1.1rem;
+
+    strong {
+      display: block;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+// De Content (Tekst)
+.facility-page__content {
+  margin-bottom: 80px;
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+// --- RESPONSIVE MEDIA QUERIES (HETZELFDE ALS TEACHERS) ---
+
+@media only screen and (min-width: 500px) {
+  // Eventuele aanpassingen voor kleine tablets
+}
+
+@media only screen and (min-width: 850px) {
+  .facility-page {
+    &__main-content {
+      // Content wordt 552px breed
+      grid-template-columns: auto 552px auto;
+      max-width: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 1250px) {
+  .facility-page {
+    &__main-content {
+      // Content wordt 729px breed
+      grid-template-columns: auto 729px auto;
+    }
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .facility-page {
+    &__main-content {
+      // Content wordt 835px breed
+      grid-template-columns: auto 835px auto;
+    }
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .facility-page {
+    &__main-content {
+      // Content wordt 920px breed
+      grid-template-columns: auto 920px auto;
+    }
+  }
+}
