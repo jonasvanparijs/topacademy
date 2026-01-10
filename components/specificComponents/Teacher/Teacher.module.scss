@@ -4,10 +4,11 @@
 
 .teacher-page {
 
+  padding: 20px;
   &__main-content {
     display: grid;
     grid-template-columns: 0 auto;
-    max-width: 1440px;
+    max-width: 1000px;
   }
 
 

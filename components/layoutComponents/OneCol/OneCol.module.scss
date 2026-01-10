@@ -3,16 +3,28 @@
 
 
 .cols {
+  
+
+
   display: grid;
   grid-row-gap: 25px;
   margin-bottom: 30px;
   margin-left: 18px;
   margin-right: 17px;
-  .colone{
+.colone {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+&:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+
+
     width: 100%;
   }
 }
-
+  
 
 
 @media only screen and (min-width: 500px) {

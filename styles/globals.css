@@ -7,3 +7,36 @@ a {
 p img{
     max-width: 100%;
 }
+main {
+  background-color: #f5f5f5;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+section {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #c62828;
+}
+img {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Chatbot visual improvements */
+iframe[src*="chat"],
+iframe[src*="widget"],
+iframe[src*="support"] {
+  border-radius: 14px !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35) !important;
+  transform: scale(1.05);
+}
+
+
+
