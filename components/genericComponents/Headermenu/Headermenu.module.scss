@@ -4,6 +4,7 @@
 
 
 .main-header {
+  background-color: hsl(219, 77%, 77%);
   @include header-font;
   
   &__nav {
