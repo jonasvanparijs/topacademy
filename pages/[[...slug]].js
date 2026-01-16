@@ -30,7 +30,11 @@ export default function Page({ story, preview, socialtags, menu }) {
   return (
     <>
       <HeadComponent socialTags={socialtags} />
-      <StoryblokComponent menu={menu} blok={{...story.content, menucontent: menu.content.menucontent}} />
+      {/* 1. Dit zet het menu automatisch bovenaan elke pagina */}
+      <StoryblokComponent blok={menu.content} /> 
+      
+      {/* 2. Dit is de rest van de inhoud van je pagina (intro, tekst, etc.) */}
+      <StoryblokComponent menu={menu} blok={story.content} />
     </>
   );
 }
