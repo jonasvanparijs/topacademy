@@ -14,7 +14,7 @@ export default class Page extends Component {
     return (
       <>
         <main {...storyblokEditable(this.props.blok)}>
-          <Headermenu blok={this.props.menu.content}></Headermenu>
+          
           {this.props.blok.body && this.props.blok.body.map((nestedBlok) => (
             <StoryblokComponent blok={nestedBlok} key={nestedBlok._uid} />
           ))}
