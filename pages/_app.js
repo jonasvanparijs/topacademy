@@ -28,6 +28,7 @@ import Location from '../components/specificComponents/Location/Location';
 import Artist from '../components/specificComponents/Artist/Artist';
 import Song from '../components/specificComponents/Song/Song';
 import FacilityPage from '../components/specificComponents/FacilityPage/FacilityPage';
+import Script from 'next/script';
 
 const components = {
   person: Teacher,
