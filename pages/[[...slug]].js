@@ -1,6 +1,7 @@
 import { useStoryblokState, getStoryblokApi, StoryblokComponent } from "@storyblok/react";
 import HeadComponent from "../components/technicalComponents/HeadComponent/HeadComponent";
 import { getTags } from "../functions/services/metaTagService";
+import Headermenu from "../components/genericComponents/Headermenu/Headermenu";
 
 export default function Page({ story, preview, socialtags, menu }) {
   story = useStoryblokState(story, { //Hook that connects the current page to the Storyblok Real Time visual editor. Needs information about the relations in order for the relations to be editable as well.
@@ -31,10 +32,9 @@ export default function Page({ story, preview, socialtags, menu }) {
     <>
       <HeadComponent socialTags={socialtags} />
       
-      {/* HIER ZET JE HET MENU NEER. DIT WERKT WEL! */}
-      <StoryblokComponent blok={menu.content} /> 
+      {/* GEBRUIK HIER DE COMPONENT RECHTSTREEKS */}
+      {menu && <Headermenu blok={menu.content} />}
       
-      {/* Dit is de rest van je pagina */}
       <StoryblokComponent blok={story.content} />
     </>
   );
