@@ -30,7 +30,7 @@ export default function Page({ story, preview, socialtags, menu }) {
   return (
     <>
       <HeadComponent socialTags={socialtags} />
-      <StoryblokComponent menu={menu} blok={story.content} />
+      <StoryblokComponent menu={menu} blok={{...story.content, menucontent: menu.content.menucontent}} />
     </>
   );
 }
