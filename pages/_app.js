@@ -81,7 +81,18 @@ function MyApp({ Component, pageProps }) {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
   }, [router.events])
-  return <Component {...pageProps} />;
+ return(
+    <>
+      {/* Hotjar / Contentsquare Tracking Script */}
+      <Script
+        src="https://t.contentsquare.net/uxa/5884811a205f1.js"
+        strategy="afterInteractive"
+      />
+
+      {/* Renderiza la página */}
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default MyApp;
